@@ -5,7 +5,8 @@
 public class Main {
   public static void main(String[] args) {
     Quarto quarto = new Quarto();
-    quarto.usarOQuarto();
+    Hospede hospede = new Hospede(quarto);
+    hospede.usarSeuQuarto();
     
   }
 
