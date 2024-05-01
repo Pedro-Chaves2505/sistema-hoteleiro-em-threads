@@ -1,12 +1,12 @@
-//import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-public class Quarto{
+public class Quarto {
   private Boolean temAlguemDentroDele = false;
- // private Lock lock = new Lock();
+  private ReentrantLock lock = new ReentrantLock();
 
-  public String usarOQuarto(){
-    
-    if(temAlguemDentroDele){
+  public String usarOQuarto() {
+    lock.lock();
+    if (temAlguemDentroDele) {
       System.out.println("!!!!!!!Uso simultaneo!");
       return "===uso simultaneo===";
     }
@@ -14,7 +14,11 @@ public class Quarto{
     System.out.println("Estou dentro do quarto usando ele!");
     System.out.println("Estou saindo do quarto!");
     this.temAlguemDentroDele = false;
+    lock.unlock();
+
     return "uso normal";
   }
-  
-}  
+  // public void setHospede(Hospede hospede){
+  // this.hospede = hospede;
+  // }
+}
