@@ -25,7 +25,7 @@ public class Main {
 		}
 	
 		hospedes.get(0).start();
-		camareiras.get(0).start();
+		camareiras.get(0).start(); 
 
 	}
 }
