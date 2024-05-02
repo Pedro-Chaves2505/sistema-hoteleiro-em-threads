@@ -17,6 +17,7 @@ public class Camareira extends Thread{
 	}
 
 	public void run() {
+
 		this.arrumarQuarto();
 	}
 	public String getNome() {

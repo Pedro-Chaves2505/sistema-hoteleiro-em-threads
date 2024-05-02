@@ -21,6 +21,7 @@ public class Main {
 				quartos.add(new Quarto(i+1));
 				hospedes.add(new Hospede("Hospede"+(i+1))); 
 				camareiras.add(new Camareira("Camareira"+(i+1)));
+				recepcionistas.add(new Recepcionista("Recepcionista"+(i+1), hospedes, quartos));
 			}
 			for(int i=0;i<1;i++) {
 				hospedes.get(i).start();

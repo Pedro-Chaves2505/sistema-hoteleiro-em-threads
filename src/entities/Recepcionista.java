@@ -1,15 +1,15 @@
 package entities;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Recepcionista extends Thread {
-	public ArrayList<Hospede> hospedes ;
-	public ArrayList<Quarto> quartos ;
+	public List<Hospede> hospedes ;
+	public List<Quarto> quartos ;
 	private Lock lock = new ReentrantLock();
 
-	public Recepcionista(String nome,ArrayList<Hospede> hospedes, ArrayList<Quarto> quartos) {
+	public Recepcionista(String nome,List<Hospede> hospedes, List<Quarto> quartos) {
 		super(nome);
 		this.hospedes = hospedes;
 		this.quartos = quartos;
@@ -34,9 +34,10 @@ public class Recepcionista extends Thread {
 	}
 	
 	public void atenderCliente() {
+	
 		hospedar(quartos.get(0),hospedes.get(0));
 	}
-	public ArrayList<Quarto> getQuartos() {
+	public List<Quarto> getQuartos() {
 		return quartos;
 	}
 }
