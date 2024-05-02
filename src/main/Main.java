@@ -22,9 +22,11 @@ public class Main {
 				hospedes.add(new Hospede("Hospede"+(i+1))); 
 				camareiras.add(new Camareira("Camareira"+(i+1)));
 			}
-			
-			hospedes.get(0).start();
-			camareiras.get(0).start();
+			for(int i=0;i<1;i++) {
+				hospedes.get(i).start();
+				camareiras.get(i).start();
+			}
+		
 		}
 	}
 }

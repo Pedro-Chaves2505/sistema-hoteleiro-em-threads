@@ -5,8 +5,10 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Quarto {
 	private Integer numeroLimiteDePessoas= 4;
 	private Boolean temAlguemDentroDele = false;
+	
 	private Hospede hospede;
 	private Integer numeroDeHospedes;
+	
 	private Recepcionista recepcionista;
 	private ReentrantLock lock = new ReentrantLock();
 	private Integer numero;
@@ -29,20 +31,9 @@ public class Quarto {
 
 		return "uso normal";
 	}
-
-	public void hospedar(Hospede hospede) {
-		lock.tryLock();
-		if (this.hospede == null) {
-			this.hospede = hospede;
-			this.hospede.setQuarto(this);
-			System.out.println(this.hospede + "está no quarto " + this.numero);
-		}
-		
-		recepcionista.getQuartos().remove(this);
-	
-		lock.unlock();
+	public void setNumeroDeHospedes(Integer numeroDeHospedes) {
+		this.numeroDeHospedes = numeroDeHospedes;
 	}
-
 	public void setHospede(Hospede hospede) {
 		this.hospede = hospede;
 	}
@@ -57,4 +48,14 @@ public class Quarto {
 	public void setRecepcionista(Recepcionista recepcionista) {
 		this.recepcionista = recepcionista;
 	}
+	public Integer getNumeroLimiteDePessoas() {
+		return numeroLimiteDePessoas;
+	}
+	public Integer getNumero() {
+		return numero;
+	}
+	public Recepcionista getRecepcionista() {
+		return recepcionista;
+	}
+	
 }

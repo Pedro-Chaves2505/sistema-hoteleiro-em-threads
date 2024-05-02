@@ -18,6 +18,10 @@ public class Hospede extends Thread {
 	public void usarSeuQuarto() {
 		this.quartoOndeHospedado.usarOQuarto();
 	}
+	public Integer reduzirGrupo(Integer redutor) {
+		grupo = grupo - redutor;
+		return grupo - redutor;
+	}
 	public Integer getGrupo() {
 		return grupo;
 	}
