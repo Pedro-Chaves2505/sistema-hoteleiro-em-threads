@@ -18,50 +18,79 @@ public class Quarto {
 		this.numero =numero;
 	}
 	
-	public String usarOQuarto() {
+	public String usarOQuarto(String nome) {
 		lock.lock();
 		sendoUsado = true;
 		if (temAlguemDentroDele) {
 			System.out.println("!!!!!!!Uso simultaneo!");
 			return "===uso simultaneo===";
+		}else {
+			
 		}
 		this.temAlguemDentroDele = true;
-		System.out.println("Estou dentro do quarto usando ele!");
-		System.out.println("Estou saindo do quarto!");
+		System.out.println(nome +" esta dentro do quarto usando ele!");
+		System.out.println(nome +" esta saindo do quarto!");
 		this.temAlguemDentroDele = false;
 		sendoUsado = false;
 		lock.unlock();
 
 		return "uso normal";
 	}
-	public void setNumeroDeHospedes(Integer numeroDeHospedes) {
-		this.numeroDeHospedes = numeroDeHospedes;
+
+	public Integer getNumeroLimiteDePessoas() {
+		return numeroLimiteDePessoas;
 	}
+
+	public void setNumeroLimiteDePessoas(Integer numeroLimiteDePessoas) {
+		this.numeroLimiteDePessoas = numeroLimiteDePessoas;
+	}
+
+	public Boolean getTemAlguemDentroDele() {
+		return temAlguemDentroDele;
+	}
+
+	public void setTemAlguemDentroDele(Boolean temAlguemDentroDele) {
+		this.temAlguemDentroDele = temAlguemDentroDele;
+	}
+
+	public Hospede getHospede() {
+		return hospede;
+	}
+
 	public void setHospede(Hospede hospede) {
 		this.hospede = hospede;
 	}
 
-	public Hospede getHospede() {
-		return this.hospede;
+	public Integer getNumeroDeHospedes() {
+		return numeroDeHospedes;
 	}
 
-	public Quarto(int numero) {
-		this.numero = numero;
+	public void setNumeroDeHospedes(Integer numeroDeHospedes) {
+		this.numeroDeHospedes = numeroDeHospedes;
 	}
-	public void setRecepcionista(Recepcionista recepcionista) {
-		this.recepcionista = recepcionista;
-	}
-	public Integer getNumeroLimiteDePessoas() {
-		return numeroLimiteDePessoas;
-	}
-	public Integer getNumero() {
-		return numero;
-	}
+
 	public Recepcionista getRecepcionista() {
 		return recepcionista;
 	}
+
+	public void setRecepcionista(Recepcionista recepcionista) {
+		this.recepcionista = recepcionista;
+	}
+
+	public Integer getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
 	public Boolean getSendoUsado() {
 		return sendoUsado;
+	}
+
+	public void setSendoUsado(Boolean sendoUsado) {
+		this.sendoUsado = sendoUsado;
 	}
 	
 }

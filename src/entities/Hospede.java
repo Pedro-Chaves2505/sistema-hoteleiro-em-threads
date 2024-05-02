@@ -8,6 +8,10 @@ public class Hospede extends Thread {
 	public Hospede(String nome) {
 		super(nome);
 	}
+	public Hospede(String nome,Quarto quartoOndeHospedado) {
+		super(nome);
+		this.quartoOndeHospedado=quartoOndeHospedado;
+	}
 	public void setQuartoOndeHospedado(Quarto quartoOndeHospedado) {
 		this.quartoOndeHospedado = quartoOndeHospedado;
 	}
@@ -16,7 +20,7 @@ public class Hospede extends Thread {
 	}
 
 	public void usarSeuQuarto() {
-		this.quartoOndeHospedado.usarOQuarto();
+		this.quartoOndeHospedado.usarOQuarto(getName());
 	}
 	public Integer reduzirGrupo(Integer redutor) {
 		grupo = grupo - redutor;

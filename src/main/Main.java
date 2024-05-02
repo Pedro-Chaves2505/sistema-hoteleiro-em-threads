@@ -15,18 +15,17 @@ public class Main {
 		List<Quarto> quartosALavar = new ArrayList<>();
 		List<Hospede> hospedes = new ArrayList<>();
 		List<Camareira> camareiras = new ArrayList<>();
-		List<Recepcionista>recepcionistas = new ArrayList<>();
-		
-	
-		while (true) {
-			for(int i=0;i<1;i++) {
-				quartos.add(new Quarto(i+1));
-				hospedes.add(new Hospede("Hospede"+(i+1))); 
-				camareiras.add(new Camareira("Camareira"+(i+1),quartosALavar));
-			}
-			
-			hospedes.get(0).start();
-			camareiras.get(0).start();
+		List<Recepcionista> recepcionistas = new ArrayList<>();
+
+		for (int i = 0; i < 1; i++) {
+			quartos.add(new Quarto(i + 1));
+			quartosALavar.add(new Quarto(1));
+			hospedes.add(new Hospede("Hospede" + (i + 1),quartos.get(0)));
+			camareiras.add(new Camareira("Camareira" + (i + 1), quartosALavar,quartos));
 		}
+	
+		hospedes.get(0).start();
+		camareiras.get(0).start();
+
 	}
 }
