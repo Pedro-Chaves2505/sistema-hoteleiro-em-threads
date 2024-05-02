@@ -7,24 +7,24 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Camareira extends Thread{
 	private String nome;
 	private List<Quarto> quartosDisponiveis;
-	private List<Quarto> quartoALavar;
+	private List<Quarto> quartosALavar;
 	private Lock lock = new ReentrantLock();
 
 	public Camareira(String nome,List<Quarto> quartos,List<Quarto> quartosDisponiveis) {
 		super(nome);
-		quartoALavar = quartos;
+		quartosALavar = quartos;
 		this.quartosDisponiveis = quartosDisponiveis;
 	}
-	public void setQuartoALavar(List<Quarto> quartoALavar) {
-		this.quartoALavar = quartoALavar;
+	public void setQuartosALavar(List<Quarto> quartosALavar) {
+		this.quartosALavar = quartosALavar;
 	}
 
 	public void arrumarQuarto() {
-		this.quartoALavar.get(0).usarOQuarto(getName());
+		this.quartosALavar.get(0).usarOQuarto(getName());
 	}
 
 	public void run() {
-		while(quartoALavar.size() == 0) {
+		while(quartosALavar.size() == 0) {
 			try {
 				sleep(1000);
 			} catch (InterruptedException e) {
@@ -34,11 +34,11 @@ public class Camareira extends Thread{
 		}
 		lock.tryLock();
 		this.arrumarQuarto();
-		if(quartoALavar.get(0).getSendoUsado()){
-			this.quartoALavar.remove(0);
+		if(quartosALavar.get(0).getSendoUsado()){
+			this.quartosALavar.remove(0);
 		}else {
-			this.quartosDisponiveis.add(quartoALavar.get(0));
-			this.quartoALavar.remove(0);
+			this.quartosDisponiveis.add(quartosALavar.get(0));
+			this.quartosALavar.remove(0);
 		}
 		System.out.println("Quarto lavado");
 		lock.unlock();
