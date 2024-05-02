@@ -1,4 +1,5 @@
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.ArrayList;
 
 public class Quarto {
   private Boolean temAlguemDentroDele = false;

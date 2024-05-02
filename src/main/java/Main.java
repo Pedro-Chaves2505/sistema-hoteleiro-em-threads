@@ -1,12 +1,22 @@
+import java.util.ArrayList;
+
 public class Main {
   public static void main(String[] args) {
-    Quarto quarto = new Quarto();
-    while(true){
-      Hospede hospede1 = new Hospede(quarto, 1);
-      Camareira camareira1 = new Camareira(quarto, 1);
-      
-      hospede1.start();
+
+    ArrayList<Quarto> listaDeQuartosALavar = new ArrayList<>();
+    
+    for(int i = 0; i < 10; i++){
+      Quarto quarto = new Quarto();
+      listaDeQuartosALavar.add(quarto);
+    }
+
+    FilaDeQuartosALavar filaDeQuartosALavar = new FilaDeQuartosALavar(listaDeQuartosALavar);
+
+    for(int i = 0; i < 10; i++){
+      Camareira camareira1 = new Camareira(filaDeQuartosALavar, 1);
       camareira1.start();
     }
+    
+    
   }
 }
