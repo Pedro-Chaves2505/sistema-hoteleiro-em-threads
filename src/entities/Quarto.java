@@ -12,6 +12,7 @@ public class Quarto {
 	private Recepcionista recepcionista;
 	private ReentrantLock lock = new ReentrantLock();
 	private Integer numero;
+	private Boolean sendoUsado=false;
 	
 	public Quarto(Integer numero) {
 		this.numero =numero;
@@ -19,6 +20,7 @@ public class Quarto {
 	
 	public String usarOQuarto() {
 		lock.lock();
+		sendoUsado = true;
 		if (temAlguemDentroDele) {
 			System.out.println("!!!!!!!Uso simultaneo!");
 			return "===uso simultaneo===";
@@ -27,6 +29,7 @@ public class Quarto {
 		System.out.println("Estou dentro do quarto usando ele!");
 		System.out.println("Estou saindo do quarto!");
 		this.temAlguemDentroDele = false;
+		sendoUsado = false;
 		lock.unlock();
 
 		return "uso normal";
@@ -56,6 +59,9 @@ public class Quarto {
 	}
 	public Recepcionista getRecepcionista() {
 		return recepcionista;
+	}
+	public Boolean getSendoUsado() {
+		return sendoUsado;
 	}
 	
 }
