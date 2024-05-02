@@ -13,6 +13,6 @@ public class Recepcionista extends Thread {
   }
 
   public void atenderCliente() {
-    vacant.get(vacant.size()-1).Hospedar((unattended.get(unattended.size()-1)))
+    vacant.get(vacant.size()-1).hospedar((unattended.get(unattended.size()-1)));
   }
 }
