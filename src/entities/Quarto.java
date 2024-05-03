@@ -19,24 +19,33 @@ public class Quarto {
 	}
 	
 	public void entrarNoQuarto(String nome) {
-		
-		lock.lock();
-		if(this.temAlguemDentroDele){
-			System.out.println("Entrada simultanea!");
+		try{
+			System.out.println(nome + " tentando entrar no quarto " + this.getNumero());
+			this.lock.lock();
+			System.out.println(lock.toString());
+			if(this.temAlguemDentroDele){
+				System.out.println("Entrada simultanea!");
+			}
+			sendoUsado = true;
+			this.temAlguemDentroDele = true;
+			System.out.println(nome +" esta dentro do quarto " + this.getNumero() +  " usando ele!");
+			try{
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			System.out.println(nome +" esta saindo do quarto  " + this.getNumero() +  "!");
+			this.temAlguemDentroDele = false;
+			sendoUsado = false;
 		}
-		sendoUsado = true;
-		this.temAlguemDentroDele = true;
-		System.out.println(nome +" esta dentro do quarto " + getNumero() +  " usando ele!");
-        try{
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } 
-		System.out.println(nome +" esta saindo do quarto!");
-		this.temAlguemDentroDele = false;
-		sendoUsado = false;
-		lock.unlock();
+		finally{
+			this.lock.unlock();
+			System.out.println(lock.toString());
+
+		}
+		
+
 	}
 
 	public Integer getNumeroLimiteDePessoas() {

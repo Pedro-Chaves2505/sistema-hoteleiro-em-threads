@@ -20,13 +20,16 @@ public class Main {
 
 		for (int i = 0; i < 1; i++) {
 			quartos.add(new Quarto(i + 1));
-			quartosALavar.push(new Quarto(1));
-			hospedes.add(new Hospede("Hospede" + (i + 1),quartosALavar, quartos.get(0)));
-			camareiras.add(new Camareira("Camareira" + (i + 1), quartosALavar,quartos));
+			quartosALavar.push(quartos.get(i));
+			hospedes.add(new Hospede("Hospede " + (i + 1),quartosALavar, quartos.get(i)));
+			camareiras.add(new Camareira("Camareira " + (i + 1), quartosALavar,quartos));
+			hospedes.get(i).start();
+			camareiras.get(i).start(); 
+
+
 		}
 	
-		hospedes.get(0).start();
-		camareiras.get(0).start(); 
+		Camareira camareira1 = new Camareira("Camareira " + 2, quartosALavar, quartos);
 
 	}
 }
