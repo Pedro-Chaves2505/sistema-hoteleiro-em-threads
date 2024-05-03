@@ -18,15 +18,60 @@ public class Main {
 		List<Camareira> camareiras = new ArrayList<>();
 		List<Recepcionista> recepcionistas = new ArrayList<>();
 
-		for (int i = 0; i < 1; i++) {
-			quartos.add(new Quarto(i + 1));
-			quartosALavar.push(new Quarto(1));
-			hospedes.add(new Hospede("Hospede" + (i + 1),quartosALavar, quartos.get(0)));
-			camareiras.add(new Camareira("Camareira" + (i + 1), quartosALavar,quartos));
+
+		// criando recepcionistas. Mínimo 5
+		for (int i = 0; i<10; i++){
+			recepcionistas.add(new Recepcionista("Recepcionista " + (i+1), hospedes, quartos)); // lista recepcionista
+		  }
+
+
+
+        // Criando quartos e quartosALavar
+		for (int i = 0; i < 10; i++) {
+			quartos.add(new Quarto(i + 1,recepcionistas.get(i))); // lista quartos
+			quartosALavar.push(new Quarto(1,recepcionistas.get(i)));
+			
+		}
+
+		//Criando HOSPEDE e CAMAREIRA 
+		for(int i =0;i<10;i++){
+            hospedes.add(new Hospede("Hospede " + (i + 1),quartosALavar, quartos.get(0))); // lita hospedes
+			camareiras.add(new Camareira("Camareira " + (i + 1), quartosALavar,quartos));
+		}
+
+		
+
+		
+		  // Iniciando as threads dos recepcionistas
+		  for (Recepcionista recepcionista : recepcionistas) {
+			recepcionista.start();
 		}
 	
-		hospedes.get(0).start();
-		camareiras.get(0).start(); 
+		// Chama o método atenderCliente depois que todas as threads forem iniciadas
+		for (Recepcionista recepcionista : recepcionistas) {
+			recepcionista.atenderCliente();
+		}
+
+		
+	    // Iniciando threads dos hóspedes
+		for (Hospede hospede : hospedes) {
+			hospede.start();
+		}
+
+		// Iniciando threads das camareiras
+		for (Camareira camareira : camareiras) {
+			camareira.start();
+		}
+			
+				
+				
+
+    
+
+
+
+
+
 
 	}
 }

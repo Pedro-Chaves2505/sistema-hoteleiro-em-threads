@@ -2,25 +2,34 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.PriorityBlockingQueue; 
+
+;
+
 
 public class FilaDeQuartosALavar {
   private ArrayList<Quarto> listaDeQuartosALavar = new ArrayList<Quarto>();
   private ReentrantLock lock = new ReentrantLock();
 
-//   public FilaDeQuartosALavar(ArrayList<Quarto> listaDeQuartosALavar) {
+  //   public FilaDeQuartosALavar(ArrayList<Quarto> listaDeQuartosALavar) {
 //     this.listaDeQuartosALavar = listaDeQuartosALavar;
 //   }
     public FilaDeQuartosALavar(){
-        this.listaDeQuartosALavar = new ArrayList<>(); 
+      this.listaDeQuartosALavar = new ArrayList<>(); 
     }
+    
+    public boolean contains(Quarto quarto){
+      return this.listaDeQuartosALavar.contains(quarto);
+    }
+    public Quarto pop() {
+      this.lock.lock();
+      Quarto quartoALavar = this.listaDeQuartosALavar.remove(0);
+      System.out.println("Chave do quarto"+ quartoALavar.getNumero() +" retirada da fila de limpeza");
+      System.out.println("[POP]" +this.toString());
+      this.lock.unlock();
+      return quartoALavar;
 
-  public Quarto pop() {
-    this.lock.lock();
-    Quarto quartoALavar = this.listaDeQuartosALavar.remove(0);
-    System.out.println("quarto limpo!");
-    System.out.println("[POP]" +this.toString());
-    this.lock.unlock();
-    return quartoALavar;
+    
   }
 
   public void push(Quarto quarto) {
@@ -35,16 +44,11 @@ public class FilaDeQuartosALavar {
     System.out.println("[PEEK]" + this.toString());
     return this.listaDeQuartosALavar.get(0);
   }
+  
   public int size(){
-    if(this.listaDeQuartosALavar.isEmpty()){
-        return 0;
-    }
     return this.listaDeQuartosALavar.size();
   }
 
-  public boolean contains(Quarto quarto){
-    return this.listaDeQuartosALavar.contains(quarto);
-  }
 
   public String toString(){
     String stringFilaDeQuartosALavar = "LISTA DE QUARTOS A LAVAR\n";
