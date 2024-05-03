@@ -1,15 +1,21 @@
 package entities;
 
+import java.util.List;
+
 public class Hospede extends Thread {
 	private String nome;
 	private Quarto quartoOndeHospedado;
 	private Integer grupo;
-
-	public Hospede(String nome) {
+    private FilaDeQuartosALavar quartosALavar;
+    
+	public Hospede(String nome, FilaDeQuartosALavar quartosALavar) {
 		super(nome);
+        this.quartosALavar = quartosALavar;
 	}
-	public Hospede(String nome,Quarto quartoOndeHospedado) {
+
+	public Hospede(String nome, FilaDeQuartosALavar quartosALavar, Quarto quartoOndeHospedado) {
 		super(nome);
+        this.quartosALavar = quartosALavar;
 		this.quartoOndeHospedado=quartoOndeHospedado;
 	}
 	public void setQuartoOndeHospedado(Quarto quartoOndeHospedado) {
@@ -19,9 +25,11 @@ public class Hospede extends Thread {
 		this.quartoOndeHospedado = quarto;
 	}
 
-	public void usarSeuQuarto() {
-		this.quartoOndeHospedado.usarOQuarto(getName());
+	public void entrarNoSeuQuarto() {
+
+		
 	}
+
 	public Integer reduzirGrupo(Integer redutor) {
 		grupo = grupo - redutor;
 		return grupo - redutor;
@@ -29,8 +37,28 @@ public class Hospede extends Thread {
 	public Integer getGrupo() {
 		return grupo;
 	}
+
+    public Quarto getQuarto(){
+        return this.quartoOndeHospedado;
+    }
+
 	public void run() {
-		this.usarSeuQuarto();
+        int i = 0;
+        while(i<5){
+            this.quartoOndeHospedado.entrarNoQuarto(getName());
+            if(!this.quartosALavar.contains(this.getQuarto())){
+                this.quartosALavar.push(this.getQuarto());
+            }            this.quartosALavar.peek();
+            try {
+				sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+            finally{
+                i++;
+            }      
+        }
 	}
 	public String getNome() {
 		return nome;
