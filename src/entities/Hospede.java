@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.List;
+import java.util.Random;
 
 public class Hospede extends Thread {
 	private String nome;
@@ -43,12 +44,23 @@ public class Hospede extends Thread {
     }
 
 	public void run() {
+		Random r = new Random();
+		int numeroDeVezesQueVaiEntrarESair = r.nextInt(10);
         int i = 0;
-        while(i<5){
+        while(i<numeroDeVezesQueVaiEntrarESair){
+			while(this.quartosALavar.contains(quartoOndeHospedado)) {
+				try {
+					System.out.println(getName() + " esperando a chave estar na recepção...");
+					sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
             this.quartoOndeHospedado.entrarNoQuarto(getName());
             if(!this.quartosALavar.contains(this.getQuarto())){
                 this.quartosALavar.push(this.getQuarto());
-            }            this.quartosALavar.peek();
+            }            
             try {
 				sleep(3000);
 			} catch (InterruptedException e) {

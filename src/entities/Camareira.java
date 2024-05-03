@@ -20,23 +20,30 @@ public class Camareira extends Thread{
 	}
 
 	public void arrumarQuarto() {
-        Quarto quartoQueVaiLavarAgora = this.quartosALavar.peek();
-        quartoQueVaiLavarAgora.entrarNoQuarto(getName());
-		this.quartosALavar.pop();
+		try {
+			this.quartosALavar.pop().entrarNoQuarto(getName());
+		} catch (Exception e) {
+			System.out.println("Oops, alguma camareira pegou a chave quando a " + getName() +
+			 " ia pegar.Mas, sem problemas, ela vai esperar haver um cliente colocar uma outra chave!");
+		}
 	}
 
 	public void run() {
-		while(this.quartosALavar.size() == 0) {
-			try {
-				sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		while(true){
+			while(this.quartosALavar.size() == 0) {
+				try {
+					System.out.println(getName() + " esperando a chave estar na recepção...");
+					sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+			lock.tryLock();
+			this.arrumarQuarto();
+			lock.unlock();
 		}
-		lock.tryLock();
-		this.arrumarQuarto();
-		lock.unlock();
+		
 	}
 	public String getNome() {
 		return nome;

@@ -22,12 +22,14 @@ public class FilaDeQuartosALavar {
       return this.listaDeQuartosALavar.contains(quarto);
     }
     public Quarto pop() {
-    this.lock.lock();
-    Quarto quartoLimpo = this.listaDeQuartosALavar.remove(0);
-    System.out.println("quarto "+ quartoLimpo.getNumero() +" limpo!");
-    System.out.println("[POP]" +this.toString());
-    this.lock.unlock();
-    return quartoLimpo;
+      this.lock.lock();
+      Quarto quartoALavar = this.listaDeQuartosALavar.remove(0);
+      System.out.println("Chave do quarto"+ quartoALavar.getNumero() +" retirada da fila de limpeza");
+      System.out.println("[POP]" +this.toString());
+      this.lock.unlock();
+      return quartoALavar;
+
+    
   }
 
   public void push(Quarto quarto) {

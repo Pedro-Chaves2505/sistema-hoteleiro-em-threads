@@ -18,18 +18,12 @@ public class Main {
 		List<Camareira> camareiras = new ArrayList<>();
 		List<Recepcionista> recepcionistas = new ArrayList<>();
 
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 3; i++) {
 			quartos.add(new Quarto(i + 1));
-			quartosALavar.push(quartos.get(i));
 			hospedes.add(new Hospede("Hospede " + (i + 1),quartosALavar, quartos.get(i)));
 			camareiras.add(new Camareira("Camareira " + (i + 1), quartosALavar,quartos));
 			hospedes.get(i).start();
 			camareiras.get(i).start(); 
-
-
 		}
-	
-		Camareira camareira1 = new Camareira("Camareira " + 2, quartosALavar, quartos);
-
 	}
 }
