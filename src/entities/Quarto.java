@@ -18,23 +18,25 @@ public class Quarto {
 		this.numero =numero;
 	}
 	
-	public String usarOQuarto(String nome) {
+	public void entrarNoQuarto(String nome) {
+		
 		lock.lock();
-		sendoUsado = true;
-		if (temAlguemDentroDele) {
-			System.out.println("!!!!!!!Uso simultaneo!");
-			return "===uso simultaneo===";
-		}else {
-			
+		if(this.temAlguemDentroDele){
+			System.out.println("Entrada simultanea!");
 		}
+		sendoUsado = true;
 		this.temAlguemDentroDele = true;
-		System.out.println(nome +" esta dentro do quarto usando ele!");
+		System.out.println(nome +" esta dentro do quarto " + getNumero() +  " usando ele!");
+        try{
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
 		System.out.println(nome +" esta saindo do quarto!");
 		this.temAlguemDentroDele = false;
 		sendoUsado = false;
 		lock.unlock();
-
-		return "uso normal";
 	}
 
 	public Integer getNumeroLimiteDePessoas() {
