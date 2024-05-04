@@ -8,7 +8,7 @@ public class Recepcionista extends Thread {
 	public List<Hospede> hospedes ; // lista de hospedes
 	public List<Quarto> quartos ; // lista de quartos
 	private Lock lock = new ReentrantLock();
-	private boolean chave = false;
+	
 
 	public Recepcionista(String nome,List<Hospede> hospedes, List<Quarto> quartos) {
 		super(nome); // cada thread recepcionista terá o nome que dado na hora da inicialização 
@@ -57,6 +57,8 @@ public class Recepcionista extends Thread {
 		//System.out.println("Recebendo a chave do quarto " + quarto.getNumero() + " na recepção.");
 		//quarto.setRecepcionista(this);
 
+
+	
 
 	}
 	

@@ -6,6 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Quarto {
 	private Integer numeroLimiteDePessoas= 4;
 	private Boolean temAlguemDentroDele = false;
+	private boolean chave = false;
 	
 	private Hospede hospede;
 	private Integer numeroDeHospedes;
@@ -108,5 +109,9 @@ public class Quarto {
 	public void setSendoUsado(Boolean sendoUsado) {
 		this.sendoUsado = sendoUsado;
 	}
+
+
+
+	
 	
 }

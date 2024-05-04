@@ -9,6 +9,8 @@ import entities.Hospede;
 import entities.Quarto;
 import entities.Recepcionista;
 
+// oi
+
 public class Main {
 
 	public static void main(String[] args) {
