@@ -36,6 +36,9 @@ public class Hospede extends Thread {
 		return grupo - redutor;
 	}
 	public Integer getGrupo() {
+		if(grupo ==null){
+			return 0;
+		}
 		return grupo;
 	}
 
