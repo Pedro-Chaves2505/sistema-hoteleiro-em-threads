@@ -18,24 +18,23 @@ public class Main {
 		List<Camareira> camareiras = new ArrayList<>();
 		List<Recepcionista> recepcionistas = new ArrayList<>();
 
-
+         
 		// criando recepcionistas. Mínimo 5
 		for (int i = 0; i<10; i++){
 			recepcionistas.add(new Recepcionista("Recepcionista " + (i+1), hospedes, quartos)); // lista recepcionista
 		  }
 
-
-
+        
         // Criando quartos e quartosALavar
 		for (int i = 0; i < 10; i++) {
-			quartos.add(new Quarto(i + 1,recepcionistas.get(i))); // lista quartos
-			quartosALavar.push(new Quarto(1,recepcionistas.get(i)));
+			quartos.add(new Quarto(i+1,recepcionistas.get(i))); // lista quartos
+			//quartosALavar.push(new Quarto(1,recepcionistas.get(i)));
 			
 		}
 
 		//Criando HOSPEDE e CAMAREIRA 
 		for(int i =0;i<10;i++){
-            hospedes.add(new Hospede("Hospede " + (i + 1),quartosALavar, quartos.get(0))); // lita hospedes
+            hospedes.add(new Hospede("Hospede " + (i + 1),quartosALavar, quartos.get(1))); // lita hospedes
 			camareiras.add(new Camareira("Camareira " + (i + 1), quartosALavar,quartos));
 		}
 
