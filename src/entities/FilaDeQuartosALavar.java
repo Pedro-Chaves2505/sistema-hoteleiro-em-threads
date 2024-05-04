@@ -21,8 +21,11 @@ public class FilaDeQuartosALavar {
     public boolean contains(Quarto quarto){
       return this.listaDeQuartosALavar.contains(quarto);
     }
+
+    //O POP QUEM FAZ É A CAMAREIRA 
     public Quarto pop() {
       this.lock.lock();
+
       Quarto quartoALavar = this.listaDeQuartosALavar.remove(0);
       System.out.println("Chave do quarto"+ quartoALavar.getNumero() +" retirada da fila de limpeza");
       System.out.println("[POP]" +this.toString());
