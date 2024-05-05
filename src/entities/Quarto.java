@@ -7,7 +7,7 @@ public class Quarto {
 	private Integer numeroLimiteDePessoas= 4;
 	private Boolean temAlguemDentroDele = false;
 	
-	private Hospede hospede;
+	private Cliente hospede;
 	private Integer numeroDeHospedes;
 	
 	private Recepcionista recepcionista;
@@ -68,11 +68,11 @@ public class Quarto {
 		this.temAlguemDentroDele = temAlguemDentroDele;
 	}
 
-	public Hospede getHospede() {
+	public Cliente getHospede() { // modificado
 		return hospede;
 	}
 
-	public void setHospede(Hospede hospede) {
+	public void setHospede(Cliente hospede) { // modificado
 		this.hospede = hospede;
 	}
 

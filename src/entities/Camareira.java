@@ -14,6 +14,7 @@ public class Camareira extends Thread{
 		super(nome);
 		this.quartosALavar = quartosALavar;
 		this.quartosDisponiveis = quartosDisponiveis;
+		
 	}
 	public void setQuartosALavar(FilaDeQuartosALavar quartosALavar) {
 		this.quartosALavar = quartosALavar;
