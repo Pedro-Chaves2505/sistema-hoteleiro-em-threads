@@ -27,7 +27,7 @@ public class Recepcionista extends Thread {
 			try {
 				if (quarto.getHospede() == null and hospede.getQuarto() == null) {
 					quarto.setHospede(hospede);
-					hospede.reduzirGrupo(4);
+					hospede.reduzirGrupo(quarto.getNumeroLimiteDePessoas());
 					quarto.setNumeroDeHospedes(hospede.getGrupo());
 					hospede.setQuarto(quarto);
 					Recepcionista.vacant.remove(Recepcionista.vancant.indexOf(quarto));
