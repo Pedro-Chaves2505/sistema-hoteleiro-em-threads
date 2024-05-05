@@ -18,6 +18,11 @@ public class Quarto {
 	public Quarto(Integer numero) {
 		this.numero =numero;
 	}
+
+	public void setHospede(Hospede hospede) {
+		this.hospede = hospede;
+		this.hospede.setQuarto(this);
+	}
 	
 	public void entrarNoQuarto(String nome) {
 		Random r = new Random();

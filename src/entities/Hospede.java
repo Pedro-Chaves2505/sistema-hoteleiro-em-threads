@@ -32,8 +32,13 @@ public class Hospede extends Thread {
 	}
 
 	public Integer reduzirGrupo(Integer redutor) {
-		grupo = grupo - redutor;
-		return grupo - redutor;
+		// visa reduzir o numero do grupo PARA O NÚMERO DO REDUTOR, dessa forma
+		// se o grupo for 4 e o redutor for 2, o grupo será 2 e será retornado o numero o novo número de remanescentes
+
+		// remanescentes é uma variável local(Work in Progress) que será implementada futuramente
+		Integer remanescentes = this.grupo - redutor;
+		this.grupo = redutor;
+		return remanescentes; // retornando remanescentes visto que o novo numero do grupo pode ser acessado com um simples <hospede>.getGrupo()
 	}
 	public Integer getGrupo() {
 		return grupo;
