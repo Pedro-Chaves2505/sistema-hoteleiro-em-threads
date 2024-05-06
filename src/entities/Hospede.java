@@ -47,6 +47,15 @@ public class Hospede extends Thread {
 		Random r = new Random();
 		int numeroDeVezesQueVaiEntrarESair = r.nextInt(10);
         int i = 0;
+		while(this.quartoOndeHospedado == null){
+			try {
+				System.out.println(getName() + " Aguardando ter um quarto...");
+				sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
         while(i<numeroDeVezesQueVaiEntrarESair){
 			while(this.quartosALavar.contains(quartoOndeHospedado)) {
 				try {
