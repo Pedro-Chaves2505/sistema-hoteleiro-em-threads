@@ -1,15 +1,15 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.PriorityBlockingQueue; 
-
-;
 
 
 public class FilaDeQuartosALavar {
   private ArrayList<Quarto> listaDeQuartosALavar = new ArrayList<Quarto>();
   private ReentrantLock lock = new ReentrantLock();
+  private Condition condicaoFilaVazia = lock.newCondition();
 
   //   public FilaDeQuartosALavar(ArrayList<Quarto> listaDeQuartosALavar) {
 //     this.listaDeQuartosALavar = listaDeQuartosALavar;
@@ -23,6 +23,13 @@ public class FilaDeQuartosALavar {
     }
     public Quarto pop() {
       this.lock.lock();
+      while(this.size() ==0){
+        try{
+          condicaoFilaVazia.await();
+        } catch (InterruptedException e){
+          System.out.println("O que coloca aqui?");
+        }
+      }
       Quarto quartoALavar = this.listaDeQuartosALavar.remove(0);
       System.out.println("Chave do quarto"+ quartoALavar.getNumero() +" retirada da fila de limpeza");
       System.out.println("[POP]" +this.toString());
@@ -35,6 +42,7 @@ public class FilaDeQuartosALavar {
   public void push(Quarto quarto) {
     this.lock.lock();
     this.listaDeQuartosALavar.add(quarto);
+    condicaoFilaVazia.signalAll();
     System.out.println("Chave do quarto " + quarto.getNumero() + " entregue para limpeza");
     System.out.println("[PUSH]" + this.toString());
     this.lock.unlock();
