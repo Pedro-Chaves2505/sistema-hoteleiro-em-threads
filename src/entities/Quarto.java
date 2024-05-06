@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Quarto {
@@ -19,6 +20,9 @@ public class Quarto {
 	}
 	
 	public void entrarNoQuarto(String nome) {
+		Random r = new Random();
+		int tempoDentroDoQuarto = r.nextInt(5);
+		int THOUSAND_MILISSECONDS = 1000;
 		try{
 			System.out.println(nome + " tentando entrar no quarto " + this.getNumero());
 			this.lock.lock();
@@ -30,7 +34,7 @@ public class Quarto {
 			this.temAlguemDentroDele = true;
 			System.out.println(nome +" esta dentro do quarto " + this.getNumero() +  " usando ele!");
 			try{
-				Thread.sleep(5000);
+				Thread.sleep(tempoDentroDoQuarto * THOUSAND_MILISSECONDS);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
