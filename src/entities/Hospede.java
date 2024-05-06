@@ -20,7 +20,7 @@ public class Hospede extends Thread {
 
 	public Hospede(String nome, FilaDeQuartosALavar quartosALavar, Quarto quartoOndeHospedado) {
 		super(nome);
-        this.quartosALavar = quartosALavar;
+        	this.quartosALavar = quartosALavar;
 		this.quartoOndeHospedado=quartoOndeHospedado;
 	}
 	public void setQuartoOndeHospedado(Quarto quartoOndeHospedado) {
@@ -49,7 +49,7 @@ public class Hospede extends Thread {
 	public void run() {
 		Random r = new Random();
 		int numeroDeVezesQueVaiEntrarESair = r.nextInt(10);
-        int i = 0, j = 0;
+        	int i = 0, j = 0;
 
 		System.out.println(this.filaDePessoasBuscandoQuarto);
 		
@@ -65,7 +65,7 @@ public class Hospede extends Thread {
 				e.printStackTrace();
 			}
 		}
-        while(i<numeroDeVezesQueVaiEntrarESair){
+        	while(i<numeroDeVezesQueVaiEntrarESair){
 			while(this.quartosALavar.contains(quartoOndeHospedado)) {
 				try {
 					System.out.println(getName() + " esperando a chave estar na recepção...");
@@ -75,10 +75,10 @@ public class Hospede extends Thread {
 					e.printStackTrace();
 				}
 			}
-            this.quartoOndeHospedado.entrarNoQuarto(getName());
-            if(!this.quartosALavar.contains(this.getQuarto())){
+             this.quartoOndeHospedado.entrarNoQuarto(getName());
+             if(!this.quartosALavar.contains(this.getQuarto())){
                 this.quartosALavar.push(this.getQuarto());
-            }            
+             }            
             try {
 				sleep(3000);
 			} catch (InterruptedException e) {
