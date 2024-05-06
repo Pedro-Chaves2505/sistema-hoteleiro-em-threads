@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Hospede extends Thread {
@@ -8,15 +9,15 @@ public class Hospede extends Thread {
 	private Quarto quartoOndeHospedado;
 	private Integer grupo;
 	private Integer tolerancia;
-    private FilaDeQuartosALavar quartosALavar;
+		private FilaDeQuartosALavar quartosALavar;
 
 	public FilaDeQuartosALavar getQuartosALavar() {
 		return quartosALavar;
 	}
-    
+
 	public Hospede(String nome, FilaDeQuartosALavar quartosALavar) {
 		super(nome);
-        this.quartosALavar = quartosALavar;
+				this.quartosALavar = quartosALavar;
 	}
 
 	public Hospede(String nome, Integer grupo,FilaDeQuartosALavar quartosALavar) {
@@ -27,7 +28,7 @@ public class Hospede extends Thread {
 
 	public Hospede(String nome, FilaDeQuartosALavar quartosALavar, Quarto quartoOndeHospedado) {
 		super(nome);
-        this.quartosALavar = quartosALavar;
+				this.quartosALavar = quartosALavar;
 		this.quartoOndeHospedado=quartoOndeHospedado;
 	}
 	public void setQuartoOndeHospedado(Quarto quartoOndeHospedado) {
@@ -39,7 +40,7 @@ public class Hospede extends Thread {
 
 	public void entrarNoSeuQuarto() {
 
-		
+
 	}
 
 	public Integer reduzirGrupo(Integer redutor) {
@@ -57,7 +58,11 @@ public class Hospede extends Thread {
 
 	public void tour() {
 		System.out.println(this.nome+" foi dar uma volta!");
-		Thread.sleep(1000);
+		try {
+			Thread.sleep(1000);
+		} catch(InterruptedException e) {
+			System.out.println("thread interrompida!");
+		}
 	}
 
 	public void grieve() {
@@ -75,12 +80,12 @@ public class Hospede extends Thread {
 		this.interrupt();
 	}
 
-  public Quarto getQuarto(){
-    return this.quartoOndeHospedado;
-  }
+	public Quarto getQuarto(){
+		return this.quartoOndeHospedado;
+	}
 
 	public void run() {
-		if(QuartoOndeHospedado==null) {
+		if(null==this.quartoOndeHospedado) {
 			if(!Recepcionista.roomless.contains(this)) {
 				boolean inQueue = Recepcionista.lodgeRequest(this);
 				if(!inQueue) {
@@ -95,8 +100,8 @@ public class Hospede extends Thread {
 		} else {
 			Random r = new Random();
 			int numeroDeVezesQueVaiEntrarESair = r.nextInt(10);
-	        int i = 0;
-	        while(i<numeroDeVezesQueVaiEntrarESair){
+					int i = 0;
+					while(i<numeroDeVezesQueVaiEntrarESair){
 				while(this.quartosALavar.contains(quartoOndeHospedado)) {
 					try {
 						System.out.println(getName() + " esperando a chave estar na recepção...");
@@ -106,20 +111,20 @@ public class Hospede extends Thread {
 						e.printStackTrace();
 					}
 				}
-	            this.quartoOndeHospedado.entrarNoQuarto(getName());
-	            if(!this.quartosALavar.contains(this.getQuarto())){
-	                this.quartosALavar.push(this.getQuarto());
-	            }            
-	            try {
+							this.quartoOndeHospedado.entrarNoQuarto(getName());
+							if(!this.quartosALavar.contains(this.getQuarto())){
+									this.quartosALavar.push(this.getQuarto());
+							}            
+							try {
 					sleep(3000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
-	            finally{
-	                i++;
-	            }      
-	        }
+							finally{
+									i++;
+							}      
+					}
 		}
 	}
 	public String getNome() {

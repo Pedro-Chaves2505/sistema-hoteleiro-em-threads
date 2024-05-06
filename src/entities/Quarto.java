@@ -6,24 +6,19 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Quarto {
 	private Integer numeroLimiteDePessoas= 4;
 	private Boolean temAlguemDentroDele = false;
-	
+
 	private Hospede hospede;
 	private Integer numeroDeHospedes;
-	
+
 	private Recepcionista recepcionista;
 	private ReentrantLock lock = new ReentrantLock();
 	private Integer numero;
 	private Boolean sendoUsado=false;
-	
+
 	public Quarto(Integer numero) {
 		this.numero =numero;
 	}
 
-	public void setHospede(Hospede hospede) {
-		this.hospede = hospede;
-		this.hospede.setQuarto(this);
-	}
-	
 	public void entrarNoQuarto(String nome) {
 		Random r = new Random();
 		int tempoDentroDoQuarto = r.nextInt(5);
@@ -53,7 +48,7 @@ public class Quarto {
 			System.out.println(lock.toString());
 
 		}
-		
+
 
 	}
 
@@ -112,5 +107,5 @@ public class Quarto {
 	public void setSendoUsado(Boolean sendoUsado) {
 		this.sendoUsado = sendoUsado;
 	}
-	
+
 }

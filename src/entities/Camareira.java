@@ -43,7 +43,7 @@ public class Camareira extends Thread{
 			this.arrumarQuarto();
 			lock.unlock();
 		}
-		
+
 	}
 	public String getNome() {
 		return nome;
