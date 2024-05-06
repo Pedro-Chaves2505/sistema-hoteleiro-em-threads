@@ -8,10 +8,20 @@ public class Hospede extends Thread {
 	private Quarto quartoOndeHospedado;
 	private Integer grupo;
     private FilaDeQuartosALavar quartosALavar;
+
+	public FilaDeQuartosALavar getQuartosALavar() {
+		return quartosALavar;
+	}
     
 	public Hospede(String nome, FilaDeQuartosALavar quartosALavar) {
 		super(nome);
         this.quartosALavar = quartosALavar;
+	}
+
+	public Hospede(String nome, Integer grupo,FilaDeQuartosALavar quartosALavar) {
+		super(nome);
+		this.grupo = grupo;
+		this.quartosALavar = quartosALavar;
 	}
 
 	public Hospede(String nome, FilaDeQuartosALavar quartosALavar, Quarto quartoOndeHospedado) {
