@@ -19,31 +19,25 @@ public class Recepcionista extends Thread {
 		if (vacant.size() > 0) {
 			Recepcionista.roomless.add(Recepcionista.requests.get(0));
 		}
-		checkInClient(Recepcionista.roomless.get(0),0);
+		atenderCliente(Recepcionista.roomless.get(0),0);
 	}
 
 	// adiciona o possivel hospede a lista de pessoas que querem ser hospedadas
-	// esse método estático será acionado pelo freguês, ele tenta entrar para a lista, e enquanto estiver na lista ele espera, caso ele seja removido e não esteja sendo atendido, ele para de esperar e faz outra coisa, eventualmente retornando
-	// possível mecânica: esperar por um determinado período de tempo
-	static boolean lodgeRequest(Hospede hospede) {
+	static void lodgeRequest(Hospede hospede) {
 		lock.lock();
 		Recepcionista.requests.add(hospede);
 		lock.unlock();
 		
 		while(!Recepcionista.roomless.contains(hospede)) {
 			if(Recepcionista.requests.contains(hospede)) {
-				if(!Recepcionista.roomless.contains(hospede)) {
-					return false;
-				} else {
-					return true;
-				}
+				if(!Recepcionista.roomless.contains())
 			} else {
 				wait();
 			}
 		}
 	}
 	
-	public void checkInClient(Hospede hospede, Integer recursion) {
+	public void atenderCliente(Hospede hospede, Integer recursion) {
 		Quarto quarto = Recepcionista.vacant.get(0);
 		if (lock.tryLock()) {
 			try {
