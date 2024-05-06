@@ -5,26 +5,41 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Recepcionista extends Thread {
-	//public List<Hospede> hospedes ;
-	//public List<Quarto> quartos ;
-	private Hospede hospede;
-	private Quarto quarto;
+	private FilaDePessoasBuscandoQuarto filaDePessoasBuscandoQuarto;
+	private FilaDeQuartosDisponiveis filaDeQuartosDisponiveis;
 	private Lock lock = new ReentrantLock();
 
-	public Recepcionista(String nome,Hospede hospede, Quarto quarto) {
+	public Recepcionista(String nome,FilaDePessoasBuscandoQuarto filaDePessoasBuscandoQuarto, FilaDeQuartosDisponiveis filaDeQuartosDisponiveis) {
 		super(nome);
-		this.hospede = hospede;
-		this.quarto = quarto;
+		this.filaDePessoasBuscandoQuarto = filaDePessoasBuscandoQuarto;
+		this.filaDeQuartosDisponiveis = filaDeQuartosDisponiveis;
 	}
 
 	public void run() {
-		System.out.println(this.quarto);
-		System.out.println(this.hospede);
-		hospedar(this.quarto, this.hospede);
+		while (true) {
+			while(this.filaDeQuartosDisponiveis.size() == 0) {
+				try {
+					sleep(1000);
+				} catch (Exception e) {
+					System.out.println("Exceção em recepcionista");
+				}			
+			}
+			Quarto quartoDisponivel = this.filaDeQuartosDisponiveis.pop();
+
+			while(this.filaDePessoasBuscandoQuarto.size() == 0) {
+				try {
+					sleep(1000);
+				} catch (Exception e) {
+					System.out.println("Exceção em recepcionista");
+				}			
+			}
+			Hospede hospedeEmAtendimento = this.filaDePessoasBuscandoQuarto.pop();
+			hospedar(quartoDisponivel, hospedeEmAtendimento);
+		}
 	}
 	
 	public void hospedar(Quarto quarto,Hospede hospede) {
-		lock.tryLock();
+		
 		if (quarto.getHospede() == null) {
 			quarto.setHospede(hospede);
 			//quarto.setNumeroDeHospedes((hospede.getGrupo() < quarto.getNumeroLimiteDePessoas()) ? hospede.getGrupo():hospede.reduzirGrupo(4));
@@ -36,7 +51,8 @@ public class Recepcionista extends Thread {
 		
 		// quarto.getRecepcionista().getQuartos().remove(quarto);
 	
-		lock.unlock();
+		System.out.println(this.lock);
+
 	}
 	
 	// public void atenderCliente() {

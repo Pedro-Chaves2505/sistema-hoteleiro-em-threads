@@ -8,10 +8,12 @@ public class Hospede extends Thread {
 	private Quarto quartoOndeHospedado;
 	private Integer grupo;
     private FilaDeQuartosALavar quartosALavar;
+	private FilaDePessoasBuscandoQuarto filaDePessoasBuscandoQuarto;
     
-	public Hospede(String nome, FilaDeQuartosALavar quartosALavar) {
+	public Hospede(String nome, FilaDeQuartosALavar quartosALavar, FilaDePessoasBuscandoQuarto filaDePessoasBuscandoQuarto) {
 		super(nome);
         this.quartosALavar = quartosALavar;
+		this.filaDePessoasBuscandoQuarto = filaDePessoasBuscandoQuarto;
 	}
 
 	public Hospede(String nome, FilaDeQuartosALavar quartosALavar, Quarto quartoOndeHospedado) {
@@ -46,11 +48,17 @@ public class Hospede extends Thread {
 	public void run() {
 		Random r = new Random();
 		int numeroDeVezesQueVaiEntrarESair = r.nextInt(10);
-        int i = 0;
+        int i = 0, j = 0;
+
+		System.out.println(this.filaDePessoasBuscandoQuarto);
+		
+		this.filaDePessoasBuscandoQuarto.push(this);
+
 		while(this.quartoOndeHospedado == null){
 			try {
 				System.out.println(getName() + " Aguardando ter um quarto...");
 				sleep(3000);
+				j++;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
