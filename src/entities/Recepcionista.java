@@ -16,14 +16,24 @@ public class Recepcionista extends Thread {
 	}
 
 	public void run() {
-		if (vacant.size() > 0) {
-			Recepcionista.roomless.add(Recepcionista.requests.get(0));
-			Recepcionista.requests.remove(0);
-		} else {
-			Recepcionista.requests.remove(0);
-			System.out.println(this.getName()+": não há quartos vagos.");
+		if (lock.tryLock()) {
+			try {
+				if (requests.size() > 0) {
+					if (vacant.size() > 0) {
+						Recepcionista.roomless.add(Recepcionista.requests.get(0));
+						Recepcionista.requests.remove(0);
+					} else {
+						Recepcionista.requests.remove(0);
+						System.out.println(this.getName()+": não há quartos vagos.");
+					}
+				}
+			} finally {
+				lock.unlock();
+			}
 		}
-		checkInClient(Recepcionista.roomless.get(0),0);
+		if(Recepcionista.roomless.size()>0) {
+			checkInClient(Recepcionista.roomless.get(0),0);
+		}
 	}
 
 	// adiciona o possivel hospede a lista de pessoas que querem ser hospedadas
