@@ -9,11 +9,13 @@ public class Hospede extends Thread {
 	private Integer grupo;
     private FilaDeQuartosALavar quartosALavar;
 	private FilaDePessoasBuscandoQuarto filaDePessoasBuscandoQuarto;
+	private FilaDeRecepcionistas filaDeRecepcionistas;
     
-	public Hospede(String nome, FilaDeQuartosALavar quartosALavar, FilaDePessoasBuscandoQuarto filaDePessoasBuscandoQuarto) {
+	public Hospede(String nome, FilaDeQuartosALavar quartosALavar, FilaDePessoasBuscandoQuarto filaDePessoasBuscandoQuarto, FilaDeRecepcionistas filaDeRecepcionistas) {
 		super(nome);
         this.quartosALavar = quartosALavar;
 		this.filaDePessoasBuscandoQuarto = filaDePessoasBuscandoQuarto;
+		this.filaDeRecepcionistas = filaDeRecepcionistas;
 	}
 
 	public Hospede(String nome, FilaDeQuartosALavar quartosALavar, Quarto quartoOndeHospedado) {
@@ -28,9 +30,8 @@ public class Hospede extends Thread {
 		this.quartoOndeHospedado = quarto;
 	}
 
-	public void entrarNoSeuQuarto() {
-
-		
+	public void pedirSaidaDeQuarto() {
+		filaDeRecepcionistas.pop().retirarPessoaDeQuarto(this);
 	}
 
 	public Integer reduzirGrupo(Integer redutor) {
@@ -88,6 +89,7 @@ public class Hospede extends Thread {
                 i++;
             }      
         }
+		this.pedirSaidaDeQuarto();
 	}
 	public String getNome() {
 		return nome;

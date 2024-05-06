@@ -6,14 +6,14 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Camareira extends Thread{
 	private String nome;
-	private List<Quarto> quartosDisponiveis;
+	private FilaDeQuartosDisponiveis filaDeQuartosDisponiveis;
 	private FilaDeQuartosALavar quartosALavar;
 	private Lock lock = new ReentrantLock();
 
-	public Camareira(String nome, FilaDeQuartosALavar quartosALavar,List<Quarto> quartosDisponiveis) {
+	public Camareira(String nome, FilaDeQuartosALavar quartosALavar,FilaDeQuartosDisponiveis filaDeQuartosDisponiveis) {
 		super(nome);
 		this.quartosALavar = quartosALavar;
-		this.quartosDisponiveis = quartosDisponiveis;
+		this.filaDeQuartosDisponiveis = filaDeQuartosDisponiveis;
 	}
 	public void setQuartosALavar(FilaDeQuartosALavar quartosALavar) {
 		this.quartosALavar = quartosALavar;
@@ -21,7 +21,11 @@ public class Camareira extends Thread{
 
 	public void arrumarQuarto() {
 		try {
-			this.quartosALavar.pop().entrarNoQuarto(getName());
+			Quarto quartoALavar = this.quartosALavar.pop();
+			quartoALavar.entrarNoQuarto(getName());
+			// if(quartoALavar.getHospede() == null){
+			// 	filaDeQuartosDisponiveis.push(quartoALavar);
+			// }
 		} catch (Exception e) {
 			System.out.println("Oops, alguma camareira pegou a chave quando a " + getName() +
 			 " ia pegar.Mas, sem problemas, ela vai esperar haver um cliente colocar uma outra chave!");
