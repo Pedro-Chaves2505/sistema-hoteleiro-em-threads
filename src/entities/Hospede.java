@@ -55,7 +55,7 @@ public class Hospede extends Thread {
 		return grupo;
 	}
 
-	public void darUmaVolta() {
+	public void tour() {
 		System.out.println(this.nome+" foi dar uma volta!");
 		Thread.sleep(1000);
 	}
@@ -72,6 +72,7 @@ public class Hospede extends Thread {
 		insults.add(" era filho do chefe, foi bom trabalhar com vocês.");
 		Random insult = new Random();
 		System.out.println(this.nome+insults.get(insult.nextInt(insults.size())));
+		this.interrupt();
 	}
 
   public Quarto getQuarto(){
@@ -85,7 +86,7 @@ public class Hospede extends Thread {
 				if(!inQueue) {
 					this.tolerancia--;
 					if(tolerancia>0) {
-						darUmaVolta();
+						tour();
 					} else {
 						grieve();
 					}

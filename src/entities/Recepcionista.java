@@ -6,9 +6,10 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Recepcionista extends Thread {
-	static List<Hospede> roomless = ArrayList<>(); // fila de espera de hospedes
-	static List<Quarto> vacant = ArrayList<>(); // lista de quartos vagos
-	static List<Hospede> requests = ArrayList<>(); // pessoas que querem ser hospedadas
+	static boolean lodgeRequest();
+	static List<Hospede> roomless = new ArrayList<>(); // fila de espera de hospedes
+	static List<Quarto> vacant = new ArrayList<>(); // lista de quartos vagos
+	static List<Hospede> requests = new ArrayList<>(); // pessoas que querem ser hospedadas
 	private Lock lock = new ReentrantLock();
 
 	public Recepcionista(String nome) {
@@ -18,6 +19,10 @@ public class Recepcionista extends Thread {
 	public void run() {
 		if (vacant.size() > 0) {
 			Recepcionista.roomless.add(Recepcionista.requests.get(0));
+			Recepcionista.requests.remove(0);
+		} else {
+			Recepcionista.requests.remove(0);
+			System.out.println(this.nome+": não há quartos vagos.");
 		}
 		checkInClient(Recepcionista.roomless.get(0),0);
 	}
@@ -25,11 +30,11 @@ public class Recepcionista extends Thread {
 	// adiciona o possivel hospede a lista de pessoas que querem ser hospedadas
 	// esse método estático será acionado pelo freguês, ele tenta entrar para a lista, e enquanto estiver na lista ele espera, caso ele seja removido e não esteja sendo atendido, ele para de esperar e faz outra coisa, eventualmente retornando
 	// possível mecânica: esperar por um determinado período de tempo
-	static boolean lodgeRequest(Hospede hospede) {
+	public static boolean lodgeRequest(Hospede hospede) {
 		lock.lock();
 		Recepcionista.requests.add(hospede);
 		lock.unlock();
-		
+
 		while(!Recepcionista.roomless.contains(hospede)) {
 			if(Recepcionista.requests.contains(hospede)) {
 				if(!Recepcionista.roomless.contains(hospede)) {
