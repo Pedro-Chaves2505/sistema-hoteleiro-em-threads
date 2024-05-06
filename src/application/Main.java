@@ -37,7 +37,7 @@ public class Main {
 		List<Hospede> hospedes = new ArrayList<>();
 		List<Camareira> camareiras = new ArrayList<>();
 		FilaDeRecepcionistas filaDeRecepcionistas = new FilaDeRecepcionistas();
-		Random r = new Random();
+	
 
 		System.out.println("aqui" + filaDePessoasBuscandoQuarto);
 
