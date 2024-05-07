@@ -28,25 +28,25 @@ public class Main {
 
 		System.out.println(filaDePessoasBuscandoQuarto);
 
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 10; i++) {
 			quartos.add(new Quarto(i + 1));
 			filaDeQuartosDisponiveis.push(quartos.get(i));
 		}
 
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 5; i++) {
 			Recepcionista recepcionista = new Recepcionista("Recepcionista " +  (i + 1), filaDePessoasBuscandoQuarto, filaDeQuartosDisponiveis, filaDeQuartosALavar, filaDeRecepcionistas);
 			filaDeRecepcionistas.push(recepcionista);
 			recepcionista.start();
 		}
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 50; i++) {
 			hospedes.add(new Hospede("Hospede " + (i + 1),filaDeQuartosALavar, filaDePessoasBuscandoQuarto, filaDeRecepcionistas));
 			hospedes.get(i).start();
 		}
 
 		
 
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 10; i++) {
 			camareiras.add(new Camareira("Camareira " + (i + 1), filaDeQuartosALavar,filaDeQuartosDisponiveis));
 			camareiras.get(i).start(); 
 		}

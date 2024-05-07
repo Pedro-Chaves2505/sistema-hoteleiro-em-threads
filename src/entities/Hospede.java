@@ -6,11 +6,19 @@ import java.util.Random;
 public class Hospede extends Thread {
 	private String nome;
 	private Quarto quartoOndeHospedado;
-	private Integer grupo;
+	private Integer grupo = 12;
     private FilaDeQuartosALavar quartosALavar;
 	private FilaDePessoasBuscandoQuarto filaDePessoasBuscandoQuarto;
 	private FilaDeRecepcionistas filaDeRecepcionistas;
     
+	public Hospede(String nome, FilaDeQuartosALavar quartosALavar, FilaDePessoasBuscandoQuarto filaDePessoasBuscandoQuarto, FilaDeRecepcionistas filaDeRecepcionistas, int grupo) {
+		super(nome);
+        this.quartosALavar = quartosALavar;
+		this.filaDePessoasBuscandoQuarto = filaDePessoasBuscandoQuarto;
+		this.filaDeRecepcionistas = filaDeRecepcionistas;
+		this.grupo = grupo;
+	}
+
 	public Hospede(String nome, FilaDeQuartosALavar quartosALavar, FilaDePessoasBuscandoQuarto filaDePessoasBuscandoQuarto, FilaDeRecepcionistas filaDeRecepcionistas) {
 		super(nome);
         this.quartosALavar = quartosALavar;
@@ -34,9 +42,9 @@ public class Hospede extends Thread {
 		filaDeRecepcionistas.pop().retirarPessoaDeQuarto(this);
 	}
 
-	public Integer reduzirGrupo(Integer redutor) {
-		grupo = grupo - redutor;
-		return grupo - redutor;
+	public Integer reduzirGrupo() {
+		this.grupo = this.grupo - 4;
+		return this.grupo;
 	}
 	public Integer getGrupo() {
 		return grupo;
@@ -49,13 +57,20 @@ public class Hospede extends Thread {
 	public void run() {
 		Random r = new Random();
 		int numeroDeVezesQueVaiEntrarESair = r.nextInt(10);
-        int i = 0, j = 0;
+        int i = 0;
+		int j = 0;
+
+
+		// while(this.getGrupo() > 4){
+		// 	int resto = this.reduzirGrupo();
+		// 	(new Hospede("Hospede dependente", quartosALavar, quartoOndeHospedado, resto)).start();
+		// }
 
 		System.out.println(this.filaDePessoasBuscandoQuarto);
 		
 		this.filaDePessoasBuscandoQuarto.push(this);
 
-		while(this.quartoOndeHospedado == null){
+		while(this.quartoOndeHospedado == null && j<2){
 			try {
 				System.out.println(getName() + " Aguardando ter um quarto...");
 				sleep(3000);
@@ -65,6 +80,13 @@ public class Hospede extends Thread {
 				e.printStackTrace();
 			}
 		}
+
+		if(j == 2){
+			System.out.println("Indo embora!");
+			this.filaDePessoasBuscandoQuarto.removerSemSerDoInicio(this);
+			return;
+		}
+
         while(i<numeroDeVezesQueVaiEntrarESair){
 			while(this.quartosALavar.contains(quartoOndeHospedado)) {
 				try {
