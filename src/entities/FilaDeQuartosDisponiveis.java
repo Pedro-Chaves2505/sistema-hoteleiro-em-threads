@@ -25,6 +25,7 @@ public class FilaDeQuartosDisponiveis {
       this.lock.lock();
       while(this.size() ==0){
         try{
+          System.out.println("Recepcionista chamou cliente para atendimento mas alguém pegou o quarto antes dela. Porém, eles vão aguardar haver um quarto...");
           condicaoFilaVazia.await();
         } catch (InterruptedException e){
           System.out.println("Em " + this + " houve exceção.");
@@ -59,7 +60,7 @@ public class FilaDeQuartosDisponiveis {
 
 
   public String toString(){
-    String stringFilaDeQuartosDisponiveis = "LISTA DE QUARTOS A DISPONIVEIS\n";
+    String stringFilaDeQuartosDisponiveis = "FILA DE QUARTOS A DISPONIVEIS\n";
     if(this.size() == 0){
         return stringFilaDeQuartosDisponiveis + "--Não há quartos disponiveis--";
     }

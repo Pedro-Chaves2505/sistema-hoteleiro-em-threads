@@ -59,7 +59,7 @@ public class FilaDeQuartosALavar {
 
 
   public String toString(){
-    String stringFilaDeQuartosALavar = "LISTA DE QUARTOS A LAVAR\n";
+    String stringFilaDeQuartosALavar = "FILA DE QUARTOS A LAVAR\n";
     if(this.size() == 0){
         return stringFilaDeQuartosALavar + "--Não há quartos a lavar--";
     }

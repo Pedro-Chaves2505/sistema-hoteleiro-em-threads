@@ -26,7 +26,7 @@ public class Main {
 		FilaDeRecepcionistas filaDeRecepcionistas = new FilaDeRecepcionistas();
 		Random r = new Random();
 
-		System.out.println("aqui" + filaDePessoasBuscandoQuarto);
+		System.out.println(filaDePessoasBuscandoQuarto);
 
 		for (int i = 0; i < 2; i++) {
 			quartos.add(new Quarto(i + 1));

@@ -20,33 +20,6 @@ public class Recepcionista extends Thread {
 		this.filaDeRecepcionistas = filaDeRecepcionistas;
 	}
 
-	public void run() {
-		while (true) {
-			while(this.filaDePessoasBuscandoQuarto.size() == 0) {
-				try {
-					System.out.println("Não há ninguém aguardando na fila");
-					System.out.println(this.filaDeQuartosDisponiveis);
-					sleep(1000);
-				} catch (Exception e) {
-					System.out.println("Exceção em recepcionista");
-				}			
-			}
-			Hospede hospedeEmAtendimento = this.filaDePessoasBuscandoQuarto.pop();
-
-			while(this.filaDeQuartosDisponiveis.size() == 0) {
-				try {
-					sleep(1000);
-				} catch (Exception e) {
-					System.out.println("Exceção em recepcionista");
-				}			
-			}
-			Quarto quartoDisponivel = this.filaDeQuartosDisponiveis.pop();
-
-			
-			hospedar(quartoDisponivel, hospedeEmAtendimento);
-		}
-	}
-	
 	public void hospedar(Quarto quarto,Hospede hospede) {
 		
 		if (quarto.getHospede() == null) {
@@ -74,10 +47,22 @@ public class Recepcionista extends Thread {
 
 	}
 
-	// public void atenderCliente() {
-	// 	hospedar(quartos.get(0),hospedes.get(0));
-	// }
-	// public List<Quarto> getQuartos() {
-	// 	return quartos;
-	// }
+	public void run() {
+		while (true) {
+			while(this.filaDePessoasBuscandoQuarto.size() == 0 || this.filaDeQuartosDisponiveis.size() == 0) {
+				try {
+					System.out.println(this.filaDePessoasBuscandoQuarto);
+					System.out.println(this.filaDeQuartosDisponiveis);
+					sleep(1000);
+				} catch (Exception e) {
+					System.out.println("Exceção em recepcionista");
+				}			
+			}
+			Hospede hospedeEmAtendimento = this.filaDePessoasBuscandoQuarto.pop();
+			Quarto quartoDisponivel = this.filaDeQuartosDisponiveis.pop();
+
+			
+			hospedar(quartoDisponivel, hospedeEmAtendimento);
+		}
+	}
 }

@@ -58,7 +58,7 @@ public class FilaDePessoasBuscandoQuarto {
 
 
   public String toString(){
-    String stringFilaDePessoasBuscandoQuarto = "LISTA DE PESSOAS BUSCANDO QUARTOS\n";
+    String stringFilaDePessoasBuscandoQuarto = "FILA DE PESSOAS BUSCANDO QUARTOS\n";
     if(this.size() == 0){
         return stringFilaDePessoasBuscandoQuarto + "--Não há pessoas na fila de aguardo para os quartos--";
     }
