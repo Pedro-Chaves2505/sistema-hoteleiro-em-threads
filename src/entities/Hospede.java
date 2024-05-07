@@ -38,10 +38,6 @@ public class Hospede extends Thread {
 		grupo = grupo - redutor;
 		return grupo - redutor;
 	}
-	public Integer reduzirGrupo(Integer redutor) {
-		grupo = grupo - redutor;
-		return grupo - redutor;
-	}
 	public Integer getGrupo() {
 		return grupo;
 	}
